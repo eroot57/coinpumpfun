@@ -783,10 +783,20 @@
 (function(){
   var frame  = document.getElementById('holders-frame');
   var loader = document.getElementById('holders-loading');
+
+  // Force show iframe after 3 seconds regardless of load event
+  setTimeout(function(){
+    loader.style.display = 'none';
+    frame.style.display  = 'block';
+  }, 3000);
+
+  // Also try on load event
   frame.addEventListener('load', function(){
     loader.style.display = 'none';
     frame.style.display  = 'block';
   });
+
+  // Auto-resize
   window.addEventListener('message', function(e){
     if(!e.data || e.data.type !== 'coinResize') return;
     if(e.data.height > 100) frame.style.height = e.data.height + 'px';
