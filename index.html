@@ -758,22 +758,57 @@
     </div>
   </section>
 
-  <section id="contest" style="background:#0a0a0a;width:100%;overflow:hidden">
+<!-- ═══════════════════════════════════════════════════════════════
+     $COIN LIVE CONTEST — EMBED SECTION
+     Paste into coinpumpfun.meme HTML before the footer.
+     Replace YOUR_TUNNEL_URL with your trycloudflare.com URL.
+     ═══════════════════════════════════════════════════════════════ -->
 
-    <div style="text-align:center;color:#FAC775;font-size:10px;letter-spacing:8px;padding:32px 0 24px">✦ ✦ ✦</div>
+<section id="contest" style="background:#0a0a0a;width:100%;overflow:hidden">
 
-    <div style="text-align:center;color:#FAC775;font-family:'Press Start 2P','Courier New',monospace;font-size:clamp(10px,2.5vw,16px);letter-spacing:2px;margin-bottom:20px">LIVE CREATOR REWARDS CONTEST</div>
+  <div style="text-align:center;color:#FAC775;font-size:10px;letter-spacing:8px;padding:32px 0 24px">✦ ✦ ✦</div>
 
-      <iframe
-        src="https://marsh-throws-replacement-occurs.trycloudflare.com/dashboard-pixel.html"
-        style="display:block;width:100%;height:900px;border:none;background:#0a0a0a"
-        scrolling="no"
-        title="$COIN Live Contest">
-      </iframe>
+  <div style="text-align:center;color:#FAC775;font-family:'Press Start 2P','Courier New',monospace;font-size:clamp(10px,2.5vw,16px);letter-spacing:2px;margin-bottom:20px;padding:0 16px">LIVE CREATOR REWARDS CONTEST</div>
 
-    <div style="text-align:center;color:#FAC775;font-size:10px;letter-spacing:8px;padding:24px 0 32px">✦ ✦ ✦</div>
+  <div id="contest-loading" style="text-align:center;color:#555;font-family:'Courier New',monospace;font-size:11px;letter-spacing:2px;padding:40px 0">
+    LOADING CONTEST DASHBOARD...
+  </div>
 
-  </section>
+  <iframe
+    id="contest-frame"
+    src="https://marsh-throws-replacement-occurs.trycloudflare.com/dashboard-pixel.html"
+    style="display:none;width:100%;border:none;background:#0a0a0a"
+    scrolling="no"
+    loading="lazy"
+    title="$COIN Live Contest Dashboard"
+  ></iframe>
+
+  <div style="text-align:center;color:#FAC775;font-size:10px;letter-spacing:8px;padding:24px 0 32px">✦ ✦ ✦</div>
+
+</section>
+
+<script>
+(function() {
+  var frame  = document.getElementById('contest-frame');
+  var loader = document.getElementById('contest-loading');
+
+  // Show iframe once loaded
+  frame.addEventListener('load', function() {
+    loader.style.display = 'none';
+    frame.style.display  = 'block';
+  });
+
+  // Auto-resize: dashboard sends its scrollHeight every second via postMessage
+  // We set the iframe height to match — nothing gets cut off on any screen size
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'coinResize') return;
+    var h = e.data.height;
+    if (h && h > 100) {
+      frame.style.height = h + 'px';
+    }
+  });
+})();
+</script>
 
   <!-- Stats ticker -->
   <div class="stats-bar">
